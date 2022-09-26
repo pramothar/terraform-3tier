@@ -19,17 +19,17 @@ cd ./application-tier/
 echo "################### Building application tier image ###################"
 ECR_APPLICATION_TIER_REPO=$(aws ecr describe-repositories --repository-names ${ECR_APPLICATION_REPO_NAME} | jq -r '.repositories[0].repositoryUri')
 docker build -t ha-app-application-tier:v1.0 .
-docker tag ha-app-application-tier:v1.0 ${ECR_APPLICATION_TIER_REPO}:latest
+docker tag ha-app-application-tier:v1.0 ha-app-application-tier:v2.0
 
 echo "################### Pushing application tier image ###################"
-docker push ${ECR_APPLICATION_TIER_REPO}:latest
+docker push ha-app-application-tier:v2.0
 
 #building and pushing the presentation tier image
 cd ../presentation-tier/
 echo "################### Building presentation tier image ###################"
 ECR_PRESENTATION_TIER_REPO=$(aws ecr describe-repositories --repository-names ${ECR_PRESENTATION_REPO_NAME} | jq -r '.repositories[0].repositoryUri')
 docker build -t ha-app-presentation-tier:v1.0 .
-docker tag ha-app-presentation-tier:v1.0 ${ECR_PRESENTATION_TIER_REPO}:latest
+docker tag ha-app-presentation-tier:v1.0 ha-app-presentation-tier:v2.0
 
 echo "################### Pushing presentation tier image ###################"
-docker push ${ECR_PRESENTATION_TIER_REPO}:latest
+docker push ha-app-presentation-tier:v2.0
